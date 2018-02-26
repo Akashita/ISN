@@ -88,7 +88,7 @@
       <div class="headerTitle">
         <img src="logo.png" alr="logo vent" style="width: 20%; margin-right: 50px;"/>
         <h1 class="white">
-          Bienvenue sur la station météorologique du lycée saint-exupéry.
+          Bienvenue sur la station météorologique du lycée sainttrhtyjytty-exupéry.
         </h1>
       </div>
       <div class="clueScroll">
