@@ -14,13 +14,17 @@
 
 
   <?php
-    $orientB = array('e','o','n','o','s','e','s','o','n','o','s','e');
+    $orientB = array('e','no','n','so','s','e','se','o','no','o','so','ne');
     $vent = array(12,9,4,4,12,8,24,29,11,15,30,25);
     $heure = array('15h00','15h15','15h30','15h45','16h00','16h15','16h30','16h45','17h00','17h15','17h30','17h45');
+    $temp = array('1','-3','2','-1','2','-2','-1','1','-4','-5','2','1');
+    $tempRes = array();
     $orient = array();
     $ventColor = array();
     $ventString = " ";
     $heureString = " ";
+    $tempString = " ";
+    $tempResString = " ";
     $red=0;
     $green=0;
     $blue=0;
@@ -33,6 +37,14 @@
         $orient[] = '90deg';
       } elseif ($orientB[$i] == 'o') {
         $orient[] = '180deg';
+      } elseif ($orientB[$i] == 'ne') {
+        $orient[] = '-45deg';
+      } elseif ($orientB[$i] == 'no') {
+        $orient[] = '-135deg';
+      } elseif ($orientB[$i] == 'se') {
+        $orient[] = '45deg';
+      } elseif ($orientB[$i] == 'so') {
+        $orient[] = '135deg';
       }
     }
 
@@ -49,10 +61,16 @@
         $ventColor[] = "rgb(100, 0, 100)";
       }
     }
+//Application de la formule de la température ressentie : https://fr.wikipedia.org/wiki/Temp%C3%A9rature_ressentie
+    for ($i=0; $i < count($vent); $i++) {
+      $tempRes[] = round(13.12+(0.6215*$temp[$i])-(11.37*pow($vent[$i],0.16))+(0.3965*$temp[$i]*pow($vent[$i], 0.16)),1);
+    }
 
     for ($i=0; $i < count($vent); $i++) {
       $ventString = "$ventString $vent[$i],";
       $heureString = "$heureString \"$heure[$i]\",";
+      $tempString = "$tempString $temp[$i],";
+      $tempResString = "$tempResString $tempRes[$i],";
     }
    ?>
 
@@ -71,7 +89,7 @@
             <a href="#previRub" class="scrollTo"><div class="flecheRubriqueNav" style="width:125px;">Nos prévisions</div></a>
           </div>
           <div class="boxRubrique">
-            <a href="#openhardware" class="scrollTo"><div class="flecheRubriqueNav" style="width:150px;">L'open hardware</div></a>
+            <a href="#tempRub" class="scrollTo"><div class="flecheRubriqueNav" style="width:150px;">L'open hardware</div></a>
           </div>
           <div class="boxRubrique">
             <a href="#tms" class="scrollTo"><div class="flecheRubriqueNav" style="width:200px;">Think it, make it, share it</div></a>
@@ -88,7 +106,7 @@
       <div class="headerTitle">
         <img src="logo.png" alr="logo vent" style="width: 20%; margin-right: 50px;"/>
         <h1 class="white">
-          Bienvenue sur la station météorologique du lycée sainttrhtyjytty-exupéry.
+          Bienvenue sur la station météorologique du lycée saint-exupéry.
         </h1>
       </div>
       <div class="clueScroll">
@@ -105,16 +123,22 @@
         </div>
         <div class="nowContent">
           <div class="nowOrient">
-            <svg style="transform:rotate(<?php echo $orient[0]?>);" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" id="svg2" width="150" height="150" viewBox="0 0 733.33 733.33">
+            <svg style="transform:rotate(<?php echo $orient[11]?>);" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" id="svg2" width="150" height="150" viewBox="0 0 733.33 733.33">
               <metadata id="metadata8"/>
               <defs id="defs6"/>
               <path d="M185.67 184.58 586.66 366.95 182.92 550.41 293.33 366.95Z" id="path817" style="fill:<?php echo($ventColor[11]);?>;stroke:#00000d;"/>
             </svg>
           </div>
-          <div class="nowVent">
+          <div class="center">
             <h3 class="black">Vent min : <?php echo $vent[11];?>km/h</h3>
             <h2 class="black"><?php echo $vent[11];?>km/h</h2>
             <h3 class="black">Vent max : <?php echo $vent[11];?>km/h</h3>
+          </div>
+          <div class="center">
+            <h3 class="black">Température instantanée : </h3>
+            <h2 class="black"><?php echo $temp[11];?>°</h2>
+            <h3 class="black">Température ressentie : </h3>
+            <h2 class="black"><?php echo $tempRes[11];?>°</h2>
           </div>
         </div>
       </section>
@@ -194,6 +218,14 @@
         </div>
         <div class="chartFormat" style="width:80%;">
           <canvas id="previ"></canvas>
+        </div>
+      </section>
+      <section class="post" id="tempRub">
+        <div class="topPost">
+          <h3 class="white">Au niveau de la température !</h3>
+        </div>
+        <div class="chartFormat" style="width:80%;">
+          <canvas id="temp"></canvas>
         </div>
       </section>
       <section class="post">
@@ -278,7 +310,7 @@
                 type:"line",
                 radius: 5,
                 pointStyle: 'rectRounded',
-                borderDash: [10],
+                borderDash: [5],
                 borderCapStyle: 'round',
                 pointHoverBackgroundColor: '#2D3143',
                 pointHoverBorderColor: '#2D3143'
@@ -319,6 +351,76 @@
                 fill: '1',
                 pointStyle: "dash",
               }],
+          labels: [<?php echo $heureString;?>]
+
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:false,
+                  }
+              }],
+              xAxes: [{
+              gridLines: {
+                  offsetGridLines: true,
+              }
+          }]
+          },
+          layout: {
+              padding: {
+                  left: 0,
+                  right: 0,
+                  top: 0,
+                  bottom: 0
+              }
+            },
+      }
+  });
+
+  var temp = document.getElementById("temp").getContext('2d');
+  var tempChart = new Chart(temp, {
+      type: 'line',
+      data: {
+          datasets: [{
+                label: 'Température instantanée (°)',
+                data: [<?php echo $tempString?>],
+                borderWidth: 2,
+                lineTension: 0.3,
+                fill: '1',
+                backgroundColor: [
+                  'rgba(32,44,99,0.1)'
+                ],
+                borderColor: [
+                  '#344a63'
+                ],
+                borderWidth: 2,
+                lineTension: 0.2,
+                pointBorderColor: '#1D6484',
+                pointBackgroundColor:'#1D6484',
+                radius: 5,
+                pointStyle: 'rectRounded',
+                borderCapStyle: 'round',
+                pointHoverBackgroundColor: '#2D3143',
+                pointHoverBorderColor: '#2D3143',
+          }, {
+                label: 'Température ressentie (°)',
+                data: [<?php echo $tempResString?>],
+                fill: 'no-fill',
+                borderColor: [
+                  '#344a63'
+                ],
+                borderWidth: 2,
+                lineTension: 0.2,
+                pointBorderColor: '#1D6484',
+                pointBackgroundColor:'#1D6484',
+                radius: 5,
+                pointStyle: 'rectRounded',
+                borderCapStyle: 'round',
+                pointHoverBackgroundColor: '#2D3143',
+                pointHoverBorderColor: '#2D3143',
+                borderDash: [5],
+          }],
           labels: [<?php echo $heureString;?>]
 
       },
