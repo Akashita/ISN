@@ -73,50 +73,18 @@
     $tempResString = "$tempResString $tempRes[$i],";
   }
   ?>
-
-  <div id="navFactice">
-    <nav>
-      <div id="logoNav">
-        <div id="flechelogoNav">Choisir votre rubrique</div>
-        <div id="rubrique">
-          <div class="boxRubrique">
-            <a href="#nowRub" class="scrollTo"><div class="flecheRubriqueNav" style="width:125px;">En ce moment</div></a>
-          </div>
-          <div class="boxRubrique">
-            <a href="#histRub" class="scrollTo"><div class="flecheRubriqueNav" style="width:100px;">Historique</div></a>
-          </div>
-          <div class="boxRubrique">
-            <a href="#previRub" class="scrollTo"><div class="flecheRubriqueNav" style="width:125px;">Nos prévisions</div></a>
-          </div>
-          <div class="boxRubrique">
-            <a href="#tempRub" class="scrollTo"><div class="flecheRubriqueNav" style="width:150px;">L'open hardware</div></a>
-          </div>
-          <div class="boxRubrique">
-            <a href="#tms" class="scrollTo"><div class="flecheRubriqueNav" style="width:200px;">Think it, make it, share it</div></a>
-          </div>
-          <div class="boxRubrique">
-            <a href="#motFin" class="scrollTo"><div class="flecheRubriqueNav" style="width:130px;">Le mot de la fin</div></a>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </div>
+  <?php include 'nav.html'; ?>
   <div id="center">
-    <header>
-      <div class="headerTitle">
-        <img src="logo.png" alr="logo vent" style="width: 20%; margin-right: 50px;"/>
-        <h1 class="white">
-          Bienvenue sur la station météorologique du lycée saint-exupéry.
-        </h1>
+    <?php include 'header.html'; ?>
+    <article class="first">
+      <div class="linkProjectTitle">
+        <h3 class="black">Pour consulter le dossier du projet, veuillez suivre le lien ci-contre :</h3>
       </div>
-      <div class="clueScroll">
-        <h3 class="white">
-          Veuillez scroller vers le bas ou alors cliquer sur le flèche ci dessous.
-        </h3>
-      </div>
-      <a class="scrollTo" href="#nowRub"><img src="downArrow.gif" alt="arrow" style="width: 100px; margin-bottom: 50px;"/></a>
-    </header>
-    <article id="article">
+      <a target="_blank" href="dossier.html" class="linkProject"> <!-- Le target permet d'ouvrir la page dans un nouvel onglet-->
+        Dossier
+      </a>
+    </article>
+    <article id="article" class="sec">
       <section class="post" id="nowRub">
         <div class="topPost">
           <h3 class="white">En ce moment</h3>
@@ -239,27 +207,7 @@
     -->
 
   </article>
-  <footer>
-    <div>
-      <h4 class="white" style="text-align:center;">Copyright © 2017 Swan Launay<br />This work is licensed under the <a href="http://www.gnu.org/licenses/gpl-3.0.html">GNU GPL License (v3)</a></h4>
-    </div>
-    <div class="separator"></div>
-    <div class="boxFooter">
-      <div class="footerTitle">
-        <h3 class="white" style="text-align: center;">Vous souhaitez télécharger la base de donnée ?</h3>
-      </div>
-      <div class="footerContent">
-        <form>
-          <input type="radio" name="type" value="sql"> <h4 class="white">Version sql</h4><br>
-          <input type="radio" name="type" value="txt"> <h4 class="white">Version txt</h4><br>
-          <input type="radio" name="type" value="tab"> <h4 class="white">Version tableur</h4>
-        </form>
-        <form>
-          <input type="button" value="Télécharger"/>
-        </form>
-      </div>
-    </div>
-  </footer>
+  <?php include 'footer.html'; ?>
 </div>
 <button onclick="topFunction()" id="retourTop" title="Retour en haut de page">Haut de page</button>
 <script type="text/javascript">
@@ -303,7 +251,20 @@ var histChart = new Chart(hist, {
       pointStyle: 'rectRounded',
       borderDash: [5],
       borderCapStyle: 'round',
-      pointHoverBackgroundColor: '#2D3143',
+      pointHoverBackgroundColor: [
+        '<?php echo $ventColor[0];?>',
+        '<?php echo $ventColor[1];?>',
+        '<?php echo $ventColor[2];?>',
+        '<?php echo $ventColor[3];?>',
+        '<?php echo $ventColor[4];?>',
+        '<?php echo $ventColor[5];?>',
+        '<?php echo $ventColor[6];?>',
+        '<?php echo $ventColor[7];?>',
+        '<?php echo $ventColor[8];?>',
+        '<?php echo $ventColor[9];?>',
+        '<?php echo $ventColor[10];?>',
+        '<?php echo $ventColor[11];?>'
+      ],
       pointHoverBorderColor: '#2D3143',
       pointRadius: 10,
       pointHoverRadius: 12,
@@ -411,7 +372,20 @@ var tempChart = new Chart(temp, {
       radius: 5,
       pointStyle: 'rectRounded',
       borderCapStyle: 'round',
-      pointHoverBackgroundColor: '#2D3143',
+      pointHoverBackgroundColor: [
+        '<?php echo $ventColor[0];?>',
+        '<?php echo $ventColor[1];?>',
+        '<?php echo $ventColor[2];?>',
+        '<?php echo $ventColor[3];?>',
+        '<?php echo $ventColor[4];?>',
+        '<?php echo $ventColor[5];?>',
+        '<?php echo $ventColor[6];?>',
+        '<?php echo $ventColor[7];?>',
+        '<?php echo $ventColor[8];?>',
+        '<?php echo $ventColor[9];?>',
+        '<?php echo $ventColor[10];?>',
+        '<?php echo $ventColor[11];?>'
+      ],
       pointHoverBorderColor: '#2D3143',
       pointStyle: 'rectRounded',
       pointRadius: 10,
@@ -443,7 +417,20 @@ var tempChart = new Chart(temp, {
       radius: 5,
       pointStyle: 'rectRounded',
       borderCapStyle: 'round',
-      pointHoverBackgroundColor: '#2D3143',
+      pointHoverBackgroundColor: [
+        '<?php echo $ventColor[0];?>',
+        '<?php echo $ventColor[1];?>',
+        '<?php echo $ventColor[2];?>',
+        '<?php echo $ventColor[3];?>',
+        '<?php echo $ventColor[4];?>',
+        '<?php echo $ventColor[5];?>',
+        '<?php echo $ventColor[6];?>',
+        '<?php echo $ventColor[7];?>',
+        '<?php echo $ventColor[8];?>',
+        '<?php echo $ventColor[9];?>',
+        '<?php echo $ventColor[10];?>',
+        '<?php echo $ventColor[11];?>'
+      ],
       pointHoverBorderColor: '#2D3143',
       borderDash: [5],
       pointStyle: 'rectRounded',
@@ -513,7 +500,20 @@ var previChart = new Chart(previ, {
       pointStyle: 'rectRounded',
       borderDash: [10],
       borderCapStyle: 'round',
-      pointHoverBackgroundColor: '#2D3143',
+      pointHoverBackgroundColor: [
+        '<?php echo $ventColor[0];?>',
+        '<?php echo $ventColor[1];?>',
+        '<?php echo $ventColor[2];?>',
+        '<?php echo $ventColor[3];?>',
+        '<?php echo $ventColor[4];?>',
+        '<?php echo $ventColor[5];?>',
+        '<?php echo $ventColor[6];?>',
+        '<?php echo $ventColor[7];?>',
+        '<?php echo $ventColor[8];?>',
+        '<?php echo $ventColor[9];?>',
+        '<?php echo $ventColor[10];?>',
+        '<?php echo $ventColor[11];?>'
+      ],
       pointHoverBorderColor: '#2D3143',
       pointStyle: 'rectRounded',
       pointRadius: 10,

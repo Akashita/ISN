@@ -1,0 +1,125 @@
+nav{
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 50px;
+  height: 100vh;
+  background-color: black;
+  background-image: url(img/wallpaper.png);
+  z-index: 5;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#navFactice{
+  display: inline-block;
+  width: 50px;
+  height: 100vh;
+
+}
+
+#logoNav{
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background-image: url(img/menuW.png);
+  background-size: 50px;
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+  z-index: 7;
+}
+
+#flechelogoNav{
+  position: relative;
+  visibility: hidden;
+  left: 40px;
+  padding: 5px;
+  width: 280px;
+  top: 10px;
+  height: 30px;
+  background-color: #0e0f0f;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 10px;
+  -webkit-transition: all .1s ease-in;
+  transition: all .1s ease-in;
+  border: 1px solid rgb(30,30,30);
+  font-family: 'Slabo 27px', serif;
+  color: rgb(220,220,220);
+  font-size: 1.5em;
+}
+
+#logoNav:hover{
+  background-color: rgb(240,240,240);
+  background-image: url(img/menuB.png);
+}
+
+#logoNav:hover #flechelogoNav{
+  visibility: visible;
+  left: 60px;
+}
+
+#logoNav:hover #rubrique{
+  left: 0px;
+}
+
+#rubrique{
+  -webkit-transition: all .2s ease-in;
+  transition: all .2s ease-in;
+  width: 50px;
+  z-index: 6;
+  position: relative;
+  top: 20px;
+  left: -50px;
+}
+
+.boxRubrique{
+  display: inline-block;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  background-image: url(img/back.png);
+  cursor: pointer;
+}
+
+.flecheRubriqueNav{
+  position: relative;
+  visibility: hidden;
+  left: 40px;
+  top: 5px;
+  padding: 5px;
+  height: 20px;
+  background-color: #151616;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 7px;
+  -webkit-transition: all .1s ease-in;
+  transition: all .1s ease-in;
+  border: 1px solid rgba(30,30,30,0.5);
+  font-family: 'Slabo 27px', serif;
+  color: rgb(220,220,220);
+  font-size: 1.2em;
+}
+
+.boxRubrique:hover .flecheRubriqueNav{
+  visibility: visible;
+  left: 60px;
+}
