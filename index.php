@@ -205,7 +205,7 @@
         Attention, changer à la fin la valeur de "document.documentElement.scrollTop" pour actualiser la position de changement de couleur du "haut de page"
       </section>
     -->
-
+    
   </article>
   <?php include 'footer.html'; ?>
 </div>
@@ -217,11 +217,14 @@ var histChart = new Chart(hist, {
   data: {
     datasets: [{
       label: 'Pression',
-      data: [14, 6, 7, 6, 5, 13, 5, 6, 7, 6, 5, 13],
+      yAxisID: 'B',
+      data: [1095, 1050, 1040, 1030, 1020, 1010, 1000, 980, 970, 950, 940, 910],
       borderWidth: 2,
       lineTension: 0.3,
+      backgroundColor: 'rgba(0,0,0,0.15)',
     }, {
       label: 'Vitesse vent (km/h)',
+      yAxisID: 'A',
       data: [<?php echo $ventString?>],
       backgroundColor: [
         'rgba(0,0,0,0)'
@@ -272,7 +275,7 @@ var histChart = new Chart(hist, {
       label: 'Vitesse vent min (km/h)',
       data: [5,3,0,0,6,2,12,15,6,11,22,15],
       backgroundColor: [
-        'rgba(32,44,99,0.1)'
+        'rgba(32,44,99,0.2)'
       ],
       borderColor: [
         '#344a63'
@@ -292,7 +295,7 @@ var histChart = new Chart(hist, {
       label: 'Vitesse vent max (km/h)',
       data: [20,15,9,12,20,10,30,35,17,25,40,35],
       backgroundColor: [
-        'rgba(32,44,99,0.2)'
+        'rgba(32,44,99,0.3)'
       ],
       borderColor: [
         '#344a63'
@@ -317,6 +320,28 @@ var histChart = new Chart(hist, {
       yAxes: [{
         ticks: {
           beginAtZero:false,
+        },
+        id: 'A',
+        scaleLabel: {
+          display: true,
+          labelString: 'Vent (km/h)'
+        },
+        type: 'linear',
+        position: 'left',
+      },{
+        gridLines: {
+          display: false,
+        },
+        scaleLabel: {
+          display: true,
+          labelString: 'Pression (hPa)'
+        },
+        id: 'B',
+        type: 'linear',
+        position: 'right',
+        ticks: {
+          max: 1100,
+          min: 900,
         }
       }],
       xAxes: [{
