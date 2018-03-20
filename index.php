@@ -205,7 +205,34 @@
         Attention, changer à la fin la valeur de "document.documentElement.scrollTop" pour actualiser la position de changement de couleur du "haut de page"
       </section>
     -->
-    
+    <section class="post" id="archivesRub">
+      <div class="topPost">
+        <h3 class="white">Vous voulez télécharger nos archives ?</h3>
+      </div>
+        <form action="archives.php" method="post" class="archivesContent">
+          <div class="archivesIn">
+            <div class="doted">
+              <h3 class="black">Quel format voulez vous exploiter ?</h3>
+              <input type="radio" name="format" value="csv" no-checked> <h4>Version tableur (.csv)</h4><br>
+              <input type="radio" name="format" value="txt" no-checked> <h4>Version texte (.txt)</h4>
+            </div>
+          </div>
+          <div class="archivesIn">
+            <div class="doted">
+              <h3 class="black">Sur quel plage de temps ?</h3>
+              <h4 class="black">Date de début</h4>
+              <input id="date" type="date" name="start"><br />
+              <h4 class="black">Date de fin</h4>
+              <input id="date" type="date" name="stop">
+            </div>
+          </div>
+          <div class="archivesIn">
+            <input type="submit" value="Télécharger"/>
+          </div>
+        </form>
+    </section>
+
+
   </article>
   <?php include 'footer.html'; ?>
 </div>

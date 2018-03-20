@@ -1,0 +1,97 @@
+
+body{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-image: url(img/backHeader.png);
+}
+
+
+.error{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  padding: 20px;
+  margin: 50px;
+  max-width: 200px;
+  background-color: #e74c3c;
+  border-radius: 5px;
+  border-bottom: 4px solid #c0392b;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1em;
+  font-weight: 300;
+  -webkit-animation-name: animError;
+          animation-name: animError;
+  -webkit-animation-duration: 4s;
+          animation-duration: 4s;
+  -webkit-animation-iteration-count: 10;
+          animation-iteration-count: 10;
+}
+
+.box{
+  margin: 20px;
+  padding: 10px;
+  border-radius: 3px;
+  background-color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95em;
+  font-weight: 300;
+}
+
+.box{
+  margin: 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95em;
+  font-weight: 300;
+
+}
+
+input[type=submit]{
+  text-decoration: none;
+  border: none;
+  padding: 7px 15px 7px 15px;
+  border-radius: 2px;
+  cursor: pointer;
+  background-color: rgb(240,240,240);
+  border: 1px solid rgb(220,220,220);
+}
+input[type=submit]:hover{
+  background-color: rgb(250,250,250);
+}
+
+@-webkit-keyframes animError {
+    0%   {background-color:#e74c3c;}
+    2%   {background-color:#e74c3c;-webkit-transform: scale(1.2, 1.2);transform: scale(1.2, 1.2);;}
+    8%   {background-color:#e74c3c;-webkit-transform: scale(1, 1);transform: scale(1, 1););}
+    25%  {background-color:#ce382b;}
+    50%  {background-color:#e74c3c;}
+    75%  {background-color:#ce382b;}
+    100% {background-color:#e74c3c;}
+}
+
+@keyframes animError {
+    0%   {background-color:#e74c3c;}
+    2%   {background-color:#e74c3c;-webkit-transform: scale(1.2, 1.2);transform: scale(1.2, 1.2);;}
+    8%   {background-color:#e74c3c;-webkit-transform: scale(1, 1);transform: scale(1, 1););}
+    25%  {background-color:#ce382b;}
+    50%  {background-color:#e74c3c;}
+    75%  {background-color:#ce382b;}
+    100% {background-color:#e74c3c;}
+}
