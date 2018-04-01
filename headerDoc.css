@@ -1,0 +1,41 @@
+
+header{
+  width: 100%;
+  height: 100vh;
+  background-color: black;
+  background-image: url(img/backHeaderDoc.png);
+  background-position: center;
+  background-size: cover;
+  display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-direction: column;
+  background-attachment: fixed;
+}
+
+.headerTitle{
+  padding: 50px;
+  padding-top: 100px;
+}
+
+.clueScroll{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 1200px) {
+  .headerTitle{
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    text-align: center;
+  }
+
+  .clueScroll{
+    text-align: center;
+    padding: 0 30px 0 30px;
+  }
+}

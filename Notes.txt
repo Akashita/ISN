@@ -1,0 +1,1 @@
+Limite de requêtes en get et en post (10 par IP ?) de sorte à éviter un ralentissement du serv

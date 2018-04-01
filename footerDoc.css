@@ -10,7 +10,9 @@ footer{
           justify-content: center;
   width: calc(100% - 40px);
   padding: 20px;
-  background-image: url(img/backHeader.png);
+  background-image: url(img/backHeaderDoc.png);
+  background-size:cover;
+  background-position: bottom;
   background-attachment: fixed;
   z-index: 1;
 }
