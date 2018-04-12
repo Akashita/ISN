@@ -1,3 +1,21 @@
+<!--
+     Personal website
+     Copyright (C) 2018 Swan Launay
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+   -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +30,7 @@
   <meta charset="UTF-8">
 </head>
 <body>
-  <?php include 'nav.html'; ?>
+  <?php include 'navDoc.html'; ?>
   <div id="center">
     <?php include 'headerDoc.html'; ?>
     <article class="doc" id="bonjour">
@@ -21,7 +39,7 @@
           <h3 class="white">Récupération des archives</h3>
         </div>
         <p class="paraf">
-          Nous mettons à disposition nos archives météorologiques. Ces archives dont gratuites mais sont soumisent à la licence [insérer le nom de la licence].
+          Nous mettons à disposition nos archives météorologiques. Ces archives sont gratuites mais soumises à la licence [insérer le nom de la licence].
           Vous avez deux possibilités pour télécharger ces archives :
         </p>
         <ul>
@@ -30,29 +48,22 @@
             <br />
             <ul>
               <li>
-                <h3>Sur la <a href="index.php#archivesRub">page d'accueil</a> est disponible un formulaire vous permettant de soit :</h3>
+                <h3>Sur la <a href="index.php#archivesRub">page d'accueil</a> est disponible un formulaire vous permettant de :</h3>
                 <ul>
                   <li>
-                    Télecharger les archives au format .csv (fichier texte facilement exploitable avec un tableur)
+                    Télécharger les archives au format .csv (fichier texte facilement exploitable avec un tableur)
                   </li>
                   <li>
-                    Télécharger les archives au format .txt, fichier texte qui suit la disposition suivante :<br />
-                    + [img/explication]
+                    Choisir la compostion de votre fichier (vent, humidité, pression, température...)<br />
                   </li>
                 </ul>
               </li>
               <br />
               <li>
-                <h3>Remarque :</h3> sur certains navigateurs le choix de la date doit se faire manuellement suivant les formats suivants :
+                <h3>Remarque :</h3> sur certains navigateurs le choix de la date doit se faire manuellement suivant le format suivant :
                 <ul>
                   <li>
-                    jj/mm/yyyy
-                  </li>
-                  <li>
-                    jj-mm-yyyy
-                  </li>
-                  <li>
-                    jj;mm;yyyy
+                    aaaa-mm-jj (année-mois-jour)
                   </li>
                 </ul>
               </li>
@@ -63,11 +74,11 @@
             <h2>Avec la méthode GET :</h2>
             <ul>
               <li>
-                <h3>Il s'agit ici d'un utilisation plutôt orientée développeurs qui passe par la composition d'une URL.</h3>
+                <h3>Il s'agit ici d'une utilisation plutôt orientée développeurs qui passe par la composition d'une URL.</h3>
               </li>
               <br />
               <li>
-                <h3>La composition suit le schéma suivant :</h3> http://lenomdusite/archives.php?start={dateDeDépart}&stop={dateDeFin}&format={csv/txt}<br />
+                <h3>La composition suit le schéma suivant :</h3><br /><br /> http://lenomdusite/archives.php?start=<strong>{dateDeDépart}</strong>&stop=<strong>{dateDeFin}</strong>&<strong>{vVent}</strong>&<strong>{dVent}</strong>&<strong>{pres}</strong>&<strong>{temp}</strong>&<strong>{hum}</strong>&<strong>{date}</strong><br />
                 <ul>
                   <li>
                     Voici quelques exemples :
@@ -82,41 +93,32 @@
                       </tr>
                       <tr>
                         <td>
-                          http://lenomdusite/archives.php?start=12-09-2016&stop=15-09-2016&format=csv
+                          http://lenomdusite/archives.php?start=12-09-2016&stop=15-09-2016&vVent&dVent&pres&temp&hum
                         </td>
                         <td>
-                          Un fichier en .csv qui contient toutes nos données du 12 septembre 2016 jusqu'au 15 septembre 2016.
+                          Un fichier en .csv qui contient la vitesse et la direction du vent, la pression, la température et l'humidité du 12 septembre 2016 jusqu'au 15 septembre 2016.
                         </td>
                       </tr>
                       <tr>
                         <td>
-                          http://lenomdusite/archives.php?start=30-12-2017&stop=12-02-2018&format=txt
+                          http://lenomdusite/archives.php?start=30-12-2017&stop=12-02-2018&date&vent
                         </td>
                         <td>
-                          Un fichier en .txt qui contient toutes nos données du 30 decembre 2017 jusqu'au 12 févriver 2018.
+                          Un fichier en .csv qui contient la date des relévés et la vitesse du vent du 30 decembre 2017 jusqu'au 12 févriver 2018.
                         </td>
                       </tr>
                     </table>
                   </li>
                   <br />
                   <li>
-                    Ainsi que les formats de date compatibles :
+                    Ainsi que les formats compatibles :
                     <table>
                       <tr>
                         <th>
                           {start}
                         </th>
                         <td>
-                          dernier-mois
-                        </td>
-                        <td>
-                          derniere-semaine
-                        </td>
-                        <td>
-                          dernier-jour
-                        </td>
-                        <td>
-                          jj/mm/yyyy
+                          jj/mm/aaaa
                         </td>
                       </tr>
                       <tr>
@@ -124,24 +126,65 @@
                           {stop}
                         </th>
                         <td>
-                          now
-                        </td>
-                        <td>
-                          jj/mm/yyyy
+                          jj/mm/aaaa
                         </td>
                       </tr>
                       <tr>
                         <th>
-                          {format}
+                          {vVent}
                         </th>
                         <td>
-                          csv
+                          La vitesse du vent*
                         </td>
+                      </tr>
+                      <tr>
+                        <th>
+                          {dVent}
+                        </th>
                         <td>
-                          txt
+                          La direction du vent*
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>
+                          {pres}
+                        </th>
+                        <td>
+                          La pression*
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>
+                          {temp}
+                        </th>
+                        <td>
+                          La température*
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>
+                          {hum}
+                        </th>
+                        <td>
+                          L'humidité*
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>
+                          {date}
+                        </th>
+                        <td>
+                          La date*
                         </td>
                       </tr>
                     </table>
+                    <ul>
+                      <li>
+                        *Pour ajouter un de ces paramètres au fichier il est juste nécessaire d'écrire le nom de la variable sans lui donner de valeur
+                         (Exemple : http://lenomdusite/archives.php?start=30-12-2017&stop=12-02-2018&<strong>vVent&dVent&pres</strong>).<br />
+                         La simple présence de la variable ajoute le paramètre au fichier.
+                      </li>
+                    </ul>
                   </li>
                 </ul>
               </li>

@@ -1,3 +1,21 @@
+<!--
+Personal website
+Copyright (C) 2018 Swan Launay
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,7 +56,7 @@ $reponse->closeCursor();
 $orientB = array('e','no','n','so','s','e','se','o','no','o','so','so');
 $vent = array(12,9,4,4,12,8,24,29,11,15,30,25);
 $heure = array('15h00','15h15','15h30','15h45','16h00','16h15','16h30','16h45','17h00','17h15','17h30','17h45');
-$temp = array('1','-3','2','-1','2','-2','-1','1','-4','-5','2','1');
+$temp = array('1','-3','2','-1','2','-2','-1','1','-4','5','2','1');
 $tempRes = array();
 $orient = array();
 $ventColor = array();
@@ -69,7 +87,7 @@ for ($i=0; $i < count($orientB); $i++) {
   }
 }
 
-for ($i=0; $i < count($vent); $i++) {
+for ($i=0; $i < count($vent); $i++) { //Dégradé de couleur en fonction de la vitesse du vent
   if ($vent[$i]<=50) {
     $indiceR = $vent[$i] * 1.08;
     $indiceV = $vent[$i] * 1.74;
@@ -93,13 +111,16 @@ for ($i=0; $i < count($vent); $i++) {
   $tempString = "$tempString $temp[$i],";
   $tempResString = "$tempResString $tempRes[$i],";
 }
+
+include 'previ.php'; //on ajoute le programme de prévision du temps (previ.php)
+
 ?>
 <?php include 'nav.html'; ?>
 <div id="center">
   <?php include 'header.html'; ?>
   <article class="first">
     <div class="linkProjectTitle">
-      <h3 class="black">Pour consulter le dossier du projet, veuillez suivre le lien ci-contre :</h3>
+      <h3 class="black">Pour télécharger le dossier du projet, veuillez suivre le lien ci-contre :</h3>
     </div>
     <a target="_blank" href="dossier.html" class="linkProject"> <!-- Le target permet d'ouvrir la page dans un nouvel onglet-->
       Dossier
@@ -120,14 +141,14 @@ for ($i=0; $i < count($vent); $i++) {
           </div>
           <div class="center">
             <h3 class="black margin">Vent min : <?php echo $vent[11];?>km/h</h3>
-            <h2 class="black"><?php echo $vent[11];?>km/h</h2>
+            <h2 class="black"><strong><?php echo $vent[11];?>km/h</strong></h2>
             <h3 class="black margin">Vent max : <?php echo $vent[11];?>km/h</h3>
           </div>
           <div class="center">
             <h3 class="black margin">Température instantanée : </h3>
-            <h2 class="black"><?php echo $temp[11];?>°</h2>
+            <h2 class="black"><strong><?php echo $temp[11];?>°</strong></h2>
             <h3 class="black margin">Température ressentie : </h3>
-            <h2 class="black"><?php echo $tempRes[11];?>°</h2>
+            <h2 class="black"><strong><?php echo $tempRes[11];?>°</strong></h2>
           </div>
         </div>
       </section>
@@ -199,14 +220,52 @@ for ($i=0; $i < count($vent); $i++) {
                 <path d="M185.67 184.58 586.66 366.95 182.92 550.41 293.33 366.95Z" id="path817" style="fill:<?php echo($ventColor[11]);?>;stroke:#00000d;"/>
               </svg>
             </div>
-          </div>
-        </section>
-        <section class="post" id="previRub">
-          <div class="topPost">
-            <h3 class="white">Nos prévision</h3>
-          </div>
-          <div class="chartFormat" style="width:80%;">
-            <canvas id="previ"></canvas>
+            <div class="infoHisto">
+              <div style="width: 50%; min-width: 250px; margin-top: 20px;">
+                <canvas id="histOrient"></canvas>
+              </div>
+              <div class="infoTxt">
+                <h3 class="black">Concernant les graphiques :</h3>
+                <ul>
+                  <li>
+                    La courbe :
+                    <ul>
+                      <li>
+                        Le graphique ci-dessus représente la vitesse du vent en fonction de l'heure, ainsi que l'évolution de la pression (en arrière-plan).
+                      </li>
+                      <li>
+                          Concernant la courbe, la zone en pointillés représente la vitesse moyenne du vent alors que les deux zones au-dessus et en-dessous représentent les valeurs maximales et minimales.
+                      </li>
+                      <li>
+                        La couleur du point sur la courbe en pointillé indique la force du vent, plus la couleur tend vers le violet, plus le vent est fort.
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    Les flèches :
+                    <ul>
+                      <li>
+                        Les flèches en dessous de la courbe représentent la direction du vent en fonction de l'heure.
+                      </li>
+                      <li>
+                        Tout comme les points sur le graphique elles sont colorées en fonction de la force du vent.
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    Le donut :
+                    <ul>
+                      <li>
+                        Le donut quant à lui représente non pas la force du vent, mais les différentes directions du vent sur une période de [insérer T] (en pourcentage).
+                      </li>
+                      <li>
+                        Vous pouvez passer votre souris dessus pour connaitre la valeur exacte du pourcentage.
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </section>
         <section class="post" id="tempRub">
@@ -217,6 +276,19 @@ for ($i=0; $i < count($vent); $i++) {
             <canvas id="temp"></canvas>
           </div>
         </section>
+        <section class="post" id="previRub">
+          <div class="topPost">
+            <h3 class="white">Nos prévision sur 24h00</h3>
+          </div>
+          <div>
+            <h3>
+              <br />
+              <?php
+                echo "Température : ".$previ[0]." | Vent : ".$previ[1]." | Temps : ".$previ[2];
+              ?>
+            </h3>
+          </div>
+        </section>
         <section class="post" id="archivesRub">
           <div class="topPost">
             <h3 class="white">Vous voulez télécharger nos archives ?</h3>
@@ -224,9 +296,13 @@ for ($i=0; $i < count($vent); $i++) {
           <form action="archives.php" method="post" class="archivesContent">
             <div class="archivesIn">
               <div class="doted">
-                <h3 class="black margin">Quel format voulez vous exploiter ?</h3>
-                <input type="radio" name="format" value="csv" no-checked> <h4>Version tableur (.csv)</h4><br>
-                <input type="radio" name="format" value="txt" no-checked> <h4>Version texte (.txt)</h4>
+                <h3 class="black margin">Quel informations voulez vous exploiter ?</h3>
+                <input type="checkbox" name="vVent" value="true" checked> <h4>Vitesse vent</h4><br>
+                <input type="checkbox" name="dVent" value="true" checked> <h4>Direction vent</h4><br>
+                <input type="checkbox" name="pres" value="true" checked> <h4>Pression</h4><br>
+                <input type="checkbox" name="temp" value="true" checked> <h4>Température</h4><br>
+                <input type="checkbox" name="hum" value="true" checked> <h4>Humdité</h4><br>
+                <input type="checkbox" name="date" value="true" checked> <h4>Date</h4><br>
               </div>
             </div>
             <div class="archivesIn">
@@ -250,19 +326,23 @@ for ($i=0; $i < count($vent); $i++) {
     </div>
     <button onclick="topFunction()" id="retourTop" title="Retour en haut de page">Haut de page</button>
     <script type="text/javascript">
-    var hist = document.getElementById("hist").getContext('2d');
+
+//-------------------------------------------------------------
+//-------------------Début des graphiques----------------------
+//-------------------------------------------------------------
+    var hist = document.getElementById("hist").getContext('2d'); //On va chercher le canvas en précisant qu'il sera utilisé en 2D
     var histChart = new Chart(hist, {
       type: 'bar',
       data: {
         datasets: [{
-          label: 'Pression',
+          label: 'Pression ',
           yAxisID: 'B',
           data: [1095, 1050, 1040, 1030, 1020, 1010, 1000, 980, 970, 950, 940, 910],
           borderWidth: 2,
           lineTension: 0.3,
           backgroundColor: 'rgba(0,0,0,0.15)',
         }, {
-          label: 'Vitesse vent (km/h)',
+          label: 'Vitesse vent (km/h) ',
           yAxisID: 'A',
           data: [<?php echo $ventString?>],
           backgroundColor: [
@@ -311,7 +391,7 @@ for ($i=0; $i < count($vent); $i++) {
           pointRadius: 10,
           pointHoverRadius: 12,
         }, {
-          label: 'Vitesse vent min (km/h)',
+          label: 'Vitesse vent min (km/h) ',
           data: [5,3,0,0,6,2,12,15,6,11,22,15],
           backgroundColor: [
             'rgba(32,44,99,0.2)'
@@ -331,7 +411,7 @@ for ($i=0; $i < count($vent); $i++) {
           fill: '-1',
           pointStyle: "dash"
         }, {
-          label: 'Vitesse vent max (km/h)',
+          label: 'Vitesse vent max (km/h) ',
           data: [20,15,9,12,20,10,30,35,17,25,40,35],
           backgroundColor: [
             'rgba(32,44,99,0.3)'
@@ -363,7 +443,7 @@ for ($i=0; $i < count($vent); $i++) {
             id: 'A',
             scaleLabel: {
               display: true,
-              labelString: 'Vent (km/h)'
+              labelString: 'Vent (km/h) '
             },
             type: 'linear',
             position: 'left',
@@ -373,7 +453,7 @@ for ($i=0; $i < count($vent); $i++) {
             },
             scaleLabel: {
               display: true,
-              labelString: 'Pression (hPa)'
+              labelString: 'Pression (hPa) '
             },
             id: 'B',
             type: 'linear',
@@ -396,6 +476,26 @@ for ($i=0; $i < count($vent); $i++) {
             top: 0,
             bottom: 0
           }
+        },
+      }
+    });
+
+    var histOrient = document.getElementById('histOrient').getContext('2d');
+    var orientChart = new Chart(histOrient, {
+      type: 'doughnut',
+      data: {
+        labels: ['Nord ', 'Nord-Est ', 'Est ', 'Sud-Est ', 'Sud ', 'Sud-Ouest ', 'Ouest ', 'Nord-Ouest '],
+        datasets: [
+          {
+            backgroundColor: ['#5F2C82','#5B4087','#57558C', '#546990','#517393','#4E8597','#4D8D99','#4B989B'],
+            data: [<?php echo $dirsF;?>], //Variable dans previ.phpS
+          }
+        ]
+      },
+      options: {
+        legend:{
+          display: true,
+          position: 'left'
         },
       }
     });
@@ -523,129 +623,9 @@ for ($i=0; $i < count($vent); $i++) {
       }
     });
 
-    var previ = document.getElementById("previ").getContext('2d');
-
-    var previChart = new Chart(previ, {
-      type: 'bar',
-      data: {
-        datasets: [{
-          label: 'Pression',
-          data: [14, 6, 7, 6, 5, 13, 5, 6, 7, 6, 5, 13],
-          borderWidth: 2,
-          lineTension: 0.3,
-        }, {
-          label: 'Vitesse vent (km/h)',
-          data: [<?php echo $ventString?>],
-          backgroundColor: [
-            'rgba(0,0,0,0)'
-          ],
-          borderColor: [
-            '#344a63'
-          ],
-          borderWidth: 2,
-          lineTension: 0.2,
-          pointBorderColor: 'rgb(255,255,255)',
-          pointBackgroundColor: [
-            '<?php echo $ventColor[0];?>',
-            '<?php echo $ventColor[1];?>',
-            '<?php echo $ventColor[2];?>',
-            '<?php echo $ventColor[3];?>',
-            '<?php echo $ventColor[4];?>',
-            '<?php echo $ventColor[5];?>',
-            '<?php echo $ventColor[6];?>',
-            '<?php echo $ventColor[7];?>',
-            '<?php echo $ventColor[8];?>',
-            '<?php echo $ventColor[9];?>',
-            '<?php echo $ventColor[10];?>',
-            '<?php echo $ventColor[11];?>'
-          ],
-          type:"line",
-          radius: 5,
-          pointStyle: 'rectRounded',
-          borderDash: [10],
-          borderCapStyle: 'round',
-          pointHoverBackgroundColor: [
-            '<?php echo $ventColor[0];?>',
-            '<?php echo $ventColor[1];?>',
-            '<?php echo $ventColor[2];?>',
-            '<?php echo $ventColor[3];?>',
-            '<?php echo $ventColor[4];?>',
-            '<?php echo $ventColor[5];?>',
-            '<?php echo $ventColor[6];?>',
-            '<?php echo $ventColor[7];?>',
-            '<?php echo $ventColor[8];?>',
-            '<?php echo $ventColor[9];?>',
-            '<?php echo $ventColor[10];?>',
-            '<?php echo $ventColor[11];?>'
-          ],
-          pointHoverBorderColor: '#2D3143',
-          pointStyle: 'rectRounded',
-          pointRadius: 10,
-          pointHoverRadius: 12,
-        }, {
-          label: 'Vitesse vent min (km/h)',
-          data: [5,3,0,0,6,2,12,15,6,11,22,15],
-          backgroundColor: [
-            'rgba(32,44,99,0.1)'
-          ],
-          borderColor: [
-            '#344a63'
-          ],
-          borderWidth: 0.1,
-          lineTension: 0.2,
-          pointBorderColor: [
-
-          ],
-          pointBackgroundColor: [
-
-          ],
-          type:"line",
-          fill: '-1',
-          pointStyle: "dash"
-        }, {
-          label: 'Vitesse vent max (km/h)',
-          data: [20,15,9,12,20,10,30,35,17,25,40,35],
-          backgroundColor: [
-            'rgba(32,44,99,0.2)'
-          ],
-          borderColor: [
-            '#344a63'
-          ],
-          borderWidth: 0.1,
-          lineTension: 0.2,
-          pointBorderColor: [
-          ],
-          type:"line",
-          fill: '1',
-          pointStyle: "dash",
-        }],
-        labels: [<?php echo $heureString;?>]
-
-      },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero:false,
-            }
-          }],
-          xAxes: [{
-            gridLines: {
-              offsetGridLines: true,
-            }
-          }]
-        },
-        layout: {
-          padding: {
-            left: 0,
-            right: 0,
-            top: 0,
-            bottom: 0
-          }
-        },
-      }
-    });
-
+//-------------------------------------------------------------
+//-------------------Fin des graphiques------------------------
+//-------------------------------------------------------------
 
     window.onscroll = function() {scrollFunction()};
 
@@ -670,21 +650,21 @@ for ($i=0; $i < count($vent); $i++) {
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
     }
-  </script>
+    </script>
 
-  <script>
-  $('.scrollTo').click(function() {
-    var getElem = $(this).attr('href');
-    var targetDistance = 20;
-    if ($(getElem).length) {
-      var getOffset = $(getElem).offset().top;
-      $('html,body').animate({
-        scrollTop: getOffset - targetDistance
-      }, 500);
-    }
-    return false;
-  });
-</script>
+    <script>
+    $('.scrollTo').click(function() {
+      var getElem = $(this).attr('href');
+      var targetDistance = 20;
+      if ($(getElem).length) {
+        var getOffset = $(getElem).offset().top;
+        $('html,body').animate({
+          scrollTop: getOffset - targetDistance
+        }, 500);
+      }
+      return false;
+    });
+  </script>
 
 </body>
 </html>

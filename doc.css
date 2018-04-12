@@ -126,3 +126,9 @@ tr:hover{
   background-size: 70px;
   padding: 10px 75px 10px 20px;
 }
+
+@media screen and (max-width: 1200px) {
+  .postDoc{
+    width: 95%;
+  }
+}
