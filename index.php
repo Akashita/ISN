@@ -51,22 +51,20 @@ $reponse->closeCursor();
 */
 
 
-
-
+// A CHErCHER DANS LA BDD
 $orientB = array('e','no','n','so','s','e','se','o','no','o','so','so');
 $vent = array(12,9,4,4,12,8,24,29,11,15,30,25);
 $heure = array('15h00','15h15','15h30','15h45','16h00','16h15','16h30','16h45','17h00','17h15','17h30','17h45');
 $temp = array('1','-3','2','-1','2','-2','-1','1','-4','5','2','1');
-$tempRes = array();
-$orient = array();
-$ventColor = array();
-$ventString = " ";
-$heureString = " ";
-$tempString = " ";
-$tempResString = " ";
-$red=0;
-$green=0;
-$blue=0;
+// ---------------------------------------
+
+
+
+
+
+
+//------ Traduction de l'orientation du vent (caractères --> degrés) ------
+$orient = array(); //L'orientation du vent en degrée
 for ($i=0; $i < count($orientB); $i++) {
   if ($orientB[$i] == 'n') {
     $orient[] = '-90deg';
@@ -86,7 +84,11 @@ for ($i=0; $i < count($orientB); $i++) {
     $orient[] = '135deg';
   }
 }
-
+//------ Détermination des couleurs des flèches directionelles en fonction du vent ------
+$ventColor = array();//Couleur du vent (en fonction de la force du vent)
+$red=0;//Proportion en rouge
+$green=0;//Proportion en vert
+$blue=0;//Proportion en bleu
 for ($i=0; $i < count($vent); $i++) { //Dégradé de couleur en fonction de la vitesse du vent
   if ($vent[$i]<=50) {
     $indiceR = $vent[$i] * 1.08;
@@ -100,24 +102,31 @@ for ($i=0; $i < count($vent); $i++) { //Dégradé de couleur en fonction de la v
     $ventColor[] = "rgb(100, 0, 100)";
   }
 }
-//Application de la formule de la température ressentie : https://fr.wikipedia.org/wiki/Temp%C3%A9rature_ressentie
+
+//------ Application de la formule de la température ressentie : https://fr.wikipedia.org/wiki/Temp%C3%A9rature_ressentie -------
+$tempRes = array();//Température ressentie
 for ($i=0; $i < count($vent); $i++) {
   $tempRes[] = round(13.12+(0.6215*$temp[$i])-(11.37*pow($vent[$i],0.16))+(0.3965*$temp[$i]*pow($vent[$i], 0.16)),1);
 }
 
+//------ Assemblage des chaines de caractères des destinées aux graphiques ------
+$ventString = " ";//vitesses de vent pour les graphiques
+$heureString = " ";//heures pour les graphiques
+$tempString = " ";//température pour les graphiques
+$tempResString = " ";//température ressentie pour les graphiques
 for ($i=0; $i < count($vent); $i++) {
   $ventString = "$ventString $vent[$i],";
   $heureString = "$heureString \"$heure[$i]\",";
   $tempString = "$tempString $temp[$i],";
   $tempResString = "$tempResString $tempRes[$i],";
 }
-
-include 'previ.php'; //on ajoute le programme de prévision du temps (previ.php)
+//------ Ajout du programme de prévision du temps sur 24H00 (previ.php) ------
+include 'previ.php'; //
 
 ?>
-<?php include 'nav.html'; ?>
+<?php include 'nav.html'; //Ajout de la barre de navigation?>
 <div id="center">
-  <?php include 'header.html'; ?>
+  <?php include 'header.html'; //Ajout de l'en-tête du site?>
   <article class="first">
     <div class="linkProjectTitle">
       <h3 class="black">Pour télécharger le dossier du projet, veuillez suivre le lien ci-contre :</h3>
@@ -127,6 +136,9 @@ include 'previ.php'; //on ajoute le programme de prévision du temps (previ.php)
     </a>
   </article>
   <article id="article" class="sec">
+    <!--==========================-->
+    <!-- Rubrique : En ce moment  -->
+    <!--==========================-->
     <section class="post" id="nowRub">
       <div class="topPost">
         <h3 class="white">En ce moment</h3>
@@ -152,6 +164,9 @@ include 'previ.php'; //on ajoute le programme de prévision du temps (previ.php)
           </div>
         </div>
       </section>
+      <!--==========================-->
+      <!-- Rubrique : Historique    -->
+      <!--==========================-->
         <section class="post" id="histRub">
           <div class="topPost">
             <h3 class="white">Historique</h3>
@@ -159,7 +174,8 @@ include 'previ.php'; //on ajoute le programme de prévision du temps (previ.php)
           <div class="chartFormat" style="width:80%;">
             <canvas id="hist"></canvas>
             <div class="dirWind">
-              <svg style="transform:rotate(<?php echo $orient[0]?>);" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" id="svg2" width="40" height="40" viewBox="0 0 733.33 733.33">
+              <!-- La balise <svg></svg> permet de créer un objet vectoriel (ici les flèches directionelles), et surtout de l'éditer en html/php-->
+              <svg style="transform:rotate(<?php echo $orient[0]// C'est ici qu'on génère l'orientation de la flèche tel qu'elle est orientée dans la base de donnée ?>);" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" id="svg2" width="40" height="40" viewBox="0 0 733.33 733.33">
                 <metadata id="metadata8"/>
                 <defs id="defs6"/>
                 <path d="M185.67 184.58 586.66 366.95 182.92 550.41 293.33 366.95Z" id="path817" style="fill:<?php echo($ventColor[0]);?>;stroke:#00000d;"/>
@@ -268,6 +284,9 @@ include 'previ.php'; //on ajoute le programme de prévision du temps (previ.php)
             </div>
           </div>
         </section>
+        <!--==========================-->
+        <!-- Rubrique : Température   -->
+        <!--==========================-->
         <section class="post" id="tempRub">
           <div class="topPost">
             <h3 class="white">Au niveau de la température !</h3>
@@ -276,6 +295,9 @@ include 'previ.php'; //on ajoute le programme de prévision du temps (previ.php)
             <canvas id="temp"></canvas>
           </div>
         </section>
+        <!--===========================-->
+        <!-- Rubrique : Nos prévisions -->
+        <!--===========================-->
         <section class="post" id="previRub">
           <div class="topPost">
             <h3 class="white">Nos prévision sur 24h00</h3>
@@ -284,11 +306,19 @@ include 'previ.php'; //on ajoute le programme de prévision du temps (previ.php)
             <h3>
               <br />
               <?php
-                echo "Température : ".$previ[0]." | Vent : ".$previ[1]." | Temps : ".$previ[2];
+                echo $temps;
               ?>
             </h3>
           </div>
+          <div>
+            <h2 class="black">
+              Explication sur la méthode utilisée ???
+            </h2>
+          </div>
         </section>
+        <!--==========================-->
+        <!-- Rubrique : Archives  -->
+        <!--==========================-->
         <section class="post" id="archivesRub">
           <div class="topPost">
             <h3 class="white">Vous voulez télécharger nos archives ?</h3>
@@ -327,24 +357,24 @@ include 'previ.php'; //on ajoute le programme de prévision du temps (previ.php)
     <button onclick="topFunction()" id="retourTop" title="Retour en haut de page">Haut de page</button>
     <script type="text/javascript">
 
-//-------------------------------------------------------------
-//-------------------Début des graphiques----------------------
-//-------------------------------------------------------------
+//=============================================================
+//---------Début de la génération des graphiques---------------
+//=============================================================
     var hist = document.getElementById("hist").getContext('2d'); //On va chercher le canvas en précisant qu'il sera utilisé en 2D
-    var histChart = new Chart(hist, {
-      type: 'bar',
+    var histChart = new Chart(hist, { //Création d'un instance de la classe Chart
+      type: 'bar',//Définition du type de graphique (on défini d'abord le type bar, puis le type line)
       data: {
         datasets: [{
-          label: 'Pression ',
-          yAxisID: 'B',
-          data: [1095, 1050, 1040, 1030, 1020, 1010, 1000, 980, 970, 950, 940, 910],
+          label: 'Pression ',//Nom de cet ensemble de valeurs
+          yAxisID: 'B',//On place les valeurs en ordonnée sur l'axe de droite
+          data: [1095, 1050, 1040, 1030, 1020, 1010, 1000, 980, 970, 950, 940, 910], //On génère les valeurs via php
           borderWidth: 2,
           lineTension: 0.3,
           backgroundColor: 'rgba(0,0,0,0.15)',
         }, {
-          label: 'Vitesse vent (km/h) ',
-          yAxisID: 'A',
-          data: [<?php echo $ventString?>],
+          label: 'Vitesse vent (km/h) ', //Deuxième groupe de valeurs
+          yAxisID: 'A',//Axe de gauche
+          data: [<?php echo $ventString?>],//Idem
           backgroundColor: [
             'rgba(0,0,0,0)'
           ],
@@ -354,7 +384,7 @@ include 'previ.php'; //on ajoute le programme de prévision du temps (previ.php)
           borderWidth: 2,
           lineTension: 0.2,
           pointBorderColor:"rgb(255,255,255)",
-          pointBackgroundColor: [
+          pointBackgroundColor: [ //Génération des couleurs des points (dégradé bleu-violet en fonction de la force du vent)
             '<?php echo $ventColor[0];?>',
             '<?php echo $ventColor[1];?>',
             '<?php echo $ventColor[2];?>',
@@ -623,43 +653,47 @@ include 'previ.php'; //on ajoute le programme de prévision du temps (previ.php)
       }
     });
 
-//-------------------------------------------------------------
-//-------------------Fin des graphiques------------------------
-//-------------------------------------------------------------
+    //=============================================================
+    //---------Fin de la génération des graphiques---------------
+    //=============================================================
 
-    window.onscroll = function() {scrollFunction()};
 
-    function scrollFunction() {
-      var docStyle = document.getElementById("retourTop").style;
-      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        if (document.body.scrollTop > 1561 || document.documentElement.scrollTop > 1561) {
-          docStyle.display = "block";
-          docStyle.backgroundColor = "white";
-          docStyle.color = "#0e0f0f";
+//------ Gestion du bouton "haut de page" ------
+    window.onscroll = function(){ //On fait en sorte que quand l'utilisateur scroll sur la page la fonction ScrollFunction() soit executée.
+      scrollFunction()
+    };
+
+    function scrollFunction() {//Cette fonction permet de faire disparaitre le bouton "haut de page" lorsqu'on est en haut de page.
+      var docStyle = document.getElementById("retourTop").style; //On va chercher le bouton de part son ID
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) { //Si on est en haut de page
+        if (document.body.scrollTop > 1561 || document.documentElement.scrollTop > 1561) {//Si on est en bas de page
+          docStyle.display = "block";//On fait apparaitre le bouton
+          docStyle.backgroundColor = "white";//de couleur blanche
+          docStyle.color = "#0e0f0f";//avec une écriture noire
         } else {
-          docStyle.display = "block";
-          docStyle.backgroundColor = "#0e0f0f";
-          docStyle.color = "white";
+          docStyle.display = "block";//idem
+          docStyle.backgroundColor = "#0e0f0f";//de couleur noir
+          docStyle.color = "white";//avec une écriture blanche
         }
       } else {
-        docStyle.display = "none";
+        docStyle.display = "none";//On fait disparaitre le bouton
       }
     }
 
+//------ Retour en haut de page lors du clique sur le bouton "haut de page" ------
     function topFunction() {
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
     }
-    </script>
 
-    <script>
-    $('.scrollTo').click(function() {
-      var getElem = $(this).attr('href');
-      var targetDistance = 20;
-      if ($(getElem).length) {
+//------ Animation pour la navigation sur le page ------
+    $('.scrollTo').click(function() { //On utilise jQuery (une bibliotèque de fonctions javascript) de sorte à pouvoir utiliser le .animate (qui n'est pas disponible avace javascript)
+      var getElem = $(this).attr('href'); //On séléctionne la valeur de l'attribut Href (donc l'ID de la rubrique voulu)
+      var targetDistance = 30; //Distance de marge par rapport à l'élément
+      if ($(getElem).length) { //On regarde si l'élément est bien là
         var getOffset = $(getElem).offset().top;
         $('html,body').animate({
-          scrollTop: getOffset - targetDistance
+          scrollTop: getOffset - targetDistance //On scrool jusqu'a la position voulu avec l'animation
         }, 500);
       }
       return false;

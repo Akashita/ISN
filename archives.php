@@ -72,7 +72,7 @@
 
         //-----------------------------------------------------------  Gestion du fichier ZIP
         $zip = new ZipArchive(); //instanciation de la classe ZipArchive
-        if($zip->open('archives/archives.zip', ZipArchive::OVERWRITE) === true){ //On test que le fichier est bien la
+        if($zip->open('archives/archives.zip', ZipArchive::OVERWRITE) == true){ //On test que le fichier est bien la
           $zip->deleteName('archives.csv'); //Supression de l'ancien fichier
           $zip->deleteName('README.txt');
           $zip->addFile('archives/archives.csv'); //Ajout du nouveau
@@ -80,17 +80,17 @@
           $zip->close(); //Fermeture de l'instance
         }
         else{
-          echo '<div class="error"> Erreur : Impossible d&#039;ouvrir le fichier zip.</div>';
+          echo '<div class="error"> Erreur : Impossible d&#039;ouvrir le fichier zip, veuillez contacter un administrateur en cliquant ici : <a href="index.php#comment">Signalement</a></div>';
         }
         //-----------------------------------------------------------
 
         echo '<div class="box"><form method="get" action="archives/archives.zip">Votre fichier est prêt ! Cliquez ici pour le télécharger : <input type="submit" name="dlButton" value="Télécharger"></form></div>';
         //Création du bouton de téléchargement
       } else {
-        echo '<div class="error"> Erreur : Mauvaise rédaction du format, veuillez vous référer à la <a href="doc.php">documentation</a>.</div>';
+        echo '<div class="error"> Erreur : Mauvaise rédaction du format, veuillez vous référer à la <a href="doc.php">documentation</a></div>';
       }
     } else {
-      echo '<div class="error""> Erreur : format de la date non conforme</div>';
+      echo '<div class="error""> Erreur : format de la date non conforme, veuillez vous référer à la <a href="doc.php">documentation</a></div>';
     }
   } elseif (isset($_POST['start']) AND isset($_POST['stop'])) {
     $start = $_POST['start'];
