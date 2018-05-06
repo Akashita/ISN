@@ -102,8 +102,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     $start = $_POST['start'];
     $stop = $_POST['stop'];
     if (strlen($start) == 10 AND strlen($stop) == 10 AND DateTime::createFromFormat('Y-m-d', $start) AND DateTime::createFromFormat('Y-m-d', $stop)) {
-      list($jourStart, $moisStart, $anneeStart) = explode('-', $start); //On découpe la variable start en trois (jour,mois,année)
-      list($jourStop, $moisStop, $anneeStop) = explode('-', $stop);//idem pour stop
+      list($anneeStart, $moisStart, $jourStart) = explode('-', $start); //On découpe la variable start en trois (jour,mois,année)
+      list($anneeStop, $moisStop, $jourStop) = explode('-', $stop);//idem pour stop
       if (checkdate($moisStart,$jourStart,$anneeStart) AND checkdate($moisStop,$jourStop,$anneeStop)) {
         if (isset($_POST['vVent'])){
           array_push($format, '$$VVENT');
