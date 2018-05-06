@@ -328,7 +328,7 @@ include 'previ.php'; //
 
 
       </article>
-      <?php include 'footer.html'; ?>
+      <?php include 'footer.php'; ?>
     </div>
     <button onclick="topFunction()" id="retourTop" title="Retour en haut de page">Haut de page</button>
     <script type="text/javascript">

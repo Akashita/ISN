@@ -1,0 +1,24 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url(img/back.png)
+}
+
+title {
+  color: #00004d;
+
+}
+
+.box {
+  margin: 10px;
+  padding: 2px;
+  overflow: auto;
+  float: left;
+  display: inline-block;
+  border: 0.5px solid black;
+  border-style: double;
+  background-color: rgba(214, 224, 245, 0.4);
+  background-attachment: fixed;
+  z-index: 1;
+  text-align: justify;
+}
