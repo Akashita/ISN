@@ -1,20 +1,20 @@
 <!--
-     Personal website
-     Copyright (C) 2018 Swan Launay
+Personal website
+Copyright (C) 2018 Swan Launay
 
-     This program is free software: you can redistribute it and/or modify
-     it under the terms of the GNU General Public License as published by
-     the Free Software Foundation, either version 3 of the License, or
-     (at your option) any later version.
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-     This program is distributed in the hope that it will be useful,
-     but WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     GNU General Public License for more details.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-     You should have received a copy of the GNU General Public License
-     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-   -->
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
 
 <!DOCTYPE html>
 <html>
@@ -181,8 +181,8 @@
                     <ul>
                       <li>
                         *Pour ajouter un de ces paramètres au fichier il est juste nécessaire d'écrire le nom de la variable sans lui donner de valeur
-                         (Exemple : http://lenomdusite/archives.php?start=30-12-2017&stop=12-02-2018&<strong>vVent&dVent&pres</strong>).<br />
-                         La simple présence de la variable ajoute le paramètre au fichier.
+                        (Exemple : http://lenomdusite/archives.php?start=30-12-2017&stop=12-02-2018&<strong>vVent&dVent&pres</strong>).<br />
+                        La simple présence de la variable ajoute le paramètre au fichier.
                       </li>
                     </ul>
                   </li>
@@ -191,14 +191,13 @@
             </ul>
           </li>
         </ul>
-
       </section>
       <section class="postDoc">
         <div class="topPostDoc">
           <h3 class="white">Code source du projet</h3>
         </div>
         <p class="paraf">
-          Ce projet est un projet libre qui suit la licence [GPL ??], il vous est donc possible de télécharger et de modifier le code source de ce dernier.
+          Ce projet est un projet libre qui suit la licence GNU GPL v3, il vous est donc possible de télécharger et de modifier le code source de ce dernier.
           <br />Pour cela deux moyens :
           <ul>
             <li>
@@ -213,21 +212,49 @@
               Pour accéder à notre page GitHub c'est ici :
               <a href="https://github.com/Akashita/ISN">
                 <div class="button github">
-                  <h3 class="white">GitHub</h3>
+                  <h3 class="white">Site web</h3>
+                </div>
+              </a>
+              <a href="https://github.com/camilcll/ISN">
+                <div class="button github">
+                  <h3 class="white">Station</h3>
                 </div>
               </a>
             </li>
           </ul>
         </p>
-
       </section>
       <section class="postDoc">
         <div class="topPostDoc">
           <h3 class="white">La station</h3>
         </div>
         <p class="paraf">
-          La station utilisé par ce projet est un conception du lycée saint exupéry dont les sources sont disponibles à cette adresse : http://varrel.fr/station/presentation.php
+          La station utilisé par ce projet est un conception du lycée saint exupéry dont les sources sont disponibles à cette adresse : <a href="http://varrel.fr/station/presentation.php">varrel.fr</a>
         </p>
+        <ul>
+          <li>
+            Vous pourrez trouver sur cette page un explication complète du fonctionnement de la station ainsi les sources (logicielles/matérielles) pour pouvoir construire la votre !
+          </li>
+        </ul>
+      </section>
+      <section class="postDoc">
+        <div class="topPostDoc">
+          <h3 class="white">Nos sources</h3>
+        </div>
+        <p class="paraf">
+          Voici un petit récapitulatif des sources que nous avons utilisé pour la réalisation de ce projet (image, documentation ...etc)
+        </p>
+        <ul>
+          <li>
+            Les fonds de pages et d'en-têtes : <a href="https://www.toptal.com/designers/subtlepatterns/">toptal.com</a>
+          </li>
+          <li>
+            La documentation concernant les prévisions météo : <a href="http://leguidemeteo.com/prevoir-le-temps-a-partir-de-son-barometre/">leguidemeteo.com</a>
+          </li>
+          <li>
+            La bilbliotèque JavaScript "ChartJs" : <a href="http://www.chartjs.org/">chartjs.org</a>
+          </li>
+        </ul>
 
       </section>
     </article>

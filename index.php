@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+  <script src="chart.min.js"></script>
   <script src="jquery-min.js"></script>
   <meta charset="UTF-8">
 </head>
@@ -32,23 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
   <?php
-  /*
-  try{
-  $bdd = new PDO('mysql:host=localhost;dbname=station;charset=utf8', 'root', '');
-}
-catch (Exception $e)
-{
-die('Erreur : ' . $e->getMessage());
-}
-$reponse = $bdd->query('SELECT * FROM météo');
-while ($donnees = $reponse->fetch())
-{
-echo $donnees['temp'];
-echo $donnees['pression'];
-echo $donnees['direction'];
-}
-$reponse->closeCursor();
-*/
 
 
 // A CHErCHER DANS LA BDD
@@ -57,8 +40,6 @@ $vent = array(12,9,4,4,12,8,24,29,11,15,30,25);
 $heure = array('15h00','15h15','15h30','15h45','16h00','16h15','16h30','16h45','17h00','17h15','17h30','17h45');
 $temp = array('1','-3','2','-1','2','-2','-1','1','-4','5','2','1');
 // ---------------------------------------
-
-
 
 
 
@@ -127,14 +108,6 @@ include 'previ.php'; //
 <?php include 'nav.html'; //Ajout de la barre de navigation?>
 <div id="center">
   <?php include 'header.html'; //Ajout de l'en-tête du site?>
-  <article class="first">
-    <div class="linkProjectTitle">
-      <h3 class="black">Pour télécharger le dossier du projet, veuillez suivre le lien ci-contre :</h3>
-    </div>
-    <a target="_blank" href="dossier.html" class="linkProject"> <!-- Le target permet d'ouvrir la page dans un nouvel onglet-->
-      Dossier
-    </a>
-  </article>
   <article id="article" class="sec">
     <!--==========================-->
     <!-- Rubrique : En ce moment  -->
@@ -302,18 +275,21 @@ include 'previ.php'; //
           <div class="topPost">
             <h3 class="white">Nos prévision sur 24h00</h3>
           </div>
-          <div>
-            <h3>
+          <div class="previTxt">
+            <h3>Quelques explications !</h3>
+            <ul>
+              <li>
+                  Grâce au donnée de notre station météo nous proposons une prévision météorologique sur une période d’environ 24H00. <br />
+                  Nos prévision se basent sur la méthode Moreux, pour plus d’information nous invitons à consulter le site <a href="http://leguidemeteo.com/prevoir-le-temps-a-partir-de-son-barometre/#attachment_809"> leguidemeteo.com</a>.
+              </li>
+            </ul>
+            <h3>Nos prévisions sur 24h :</h3><br />
+            <h3 class="center">
               <br />
               <?php
                 echo $temps;
               ?>
             </h3>
-          </div>
-          <div>
-            <h2 class="black">
-              Explication sur la méthode utilisée ???
-            </h2>
           </div>
         </section>
         <!--==========================-->
@@ -665,8 +641,9 @@ include 'previ.php'; //
 
     function scrollFunction() {//Cette fonction permet de faire disparaitre le bouton "haut de page" lorsqu'on est en haut de page.
       var docStyle = document.getElementById("retourTop").style; //On va chercher le bouton de part son ID
+      console.log(document.documentElement.scrollTop);
       if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) { //Si on est en haut de page
-        if (document.body.scrollTop > 1561 || document.documentElement.scrollTop > 1561) {//Si on est en bas de page
+        if (document.body.scrollTop > 3181 || document.documentElement.scrollTop > 3181) {//Si on est en bas de page
           docStyle.display = "block";//On fait apparaitre le bouton
           docStyle.backgroundColor = "white";//de couleur blanche
           docStyle.color = "#0e0f0f";//avec une écriture noire
@@ -687,13 +664,13 @@ include 'previ.php'; //
     }
 
 //------ Animation pour la navigation sur le page ------
-    $('.scrollTo').click(function() { //On utilise jQuery (une bibliotèque de fonctions javascript) de sorte à pouvoir utiliser le .animate (qui n'est pas disponible avace javascript)
+    $('.scrollTo').click(function() { //On utilise jQuery (une bibliotèque de fonctions javascript) de sorte à pouvoir utiliser le .animate (qui n'est pas disponible avace JavaScript)
       var getElem = $(this).attr('href'); //On séléctionne la valeur de l'attribut Href (donc l'ID de la rubrique voulu)
       var targetDistance = 30; //Distance de marge par rapport à l'élément
       if ($(getElem).length) { //On regarde si l'élément est bien là
         var getOffset = $(getElem).offset().top;
         $('html,body').animate({
-          scrollTop: getOffset - targetDistance //On scrool jusqu'a la position voulu avec l'animation
+          scrollTop: getOffset - targetDistance //On scroll jusqu'a la position voulu avec l'animation
         }, 500);
       }
       return false;

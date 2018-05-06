@@ -75,6 +75,7 @@ h5{
 /*---<a>---*/
 
 a{
+  color: rgb(150,150,150);
   text-decoration: none;
   outline: none;
 }
@@ -109,21 +110,6 @@ a:visited{
   width: calc(100vw - 50px);
   z-index: 4;
   min-height: 100vh;
-}
-
-article.first{
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  width: 100%;
-  min-height: 50px;
-  background: white;
 }
 
 .linkProject{
@@ -225,6 +211,10 @@ article.sec{
 
 .infoTxt{
   margin-left: 10px;
+}
+
+.previTxt{
+  margin: 50px;
 }
 
 ul{
@@ -442,14 +432,6 @@ input[type=submit].white:hover{
     flex-direction: column;
   }
 
-  .linkProjectTitle{
-    text-align: center;
-    margin: 0 50px 0 50px;
-  }
-
-  .linkProject{
-    margin-bottom: 30px;
-  }
 
   .post{
     width: 95%;

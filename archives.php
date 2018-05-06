@@ -1,20 +1,20 @@
 <!--
-     Personal website
-     Copyright (C) 2018 Swan Launay
+Personal website
+Copyright (C) 2018 Swan Launay
 
-     This program is free software: you can redistribute it and/or modify
-     it under the terms of the GNU General Public License as published by
-     the Free Software Foundation, either version 3 of the License, or
-     (at your option) any later version.
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-     This program is distributed in the hope that it will be useful,
-     but WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     GNU General Public License for more details.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-     You should have received a copy of the GNU General Public License
-     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-   -->
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
 
 <!DOCTYPE html>
 <html>
@@ -52,42 +52,48 @@
       array_push($format, '$$TEMP');
     }
     if (strlen($start) == 10 AND strlen($stop) == 10 AND DateTime::createFromFormat('d-m-Y', $start) AND DateTime::createFromFormat('d-m-Y', $stop)){ //Vérification du format de la date d=jj m=mm Y=aaaa
-      if (isset($format[0]) != ""){ //On regarde qu'au moins une informations est demandée
-        $fileName = "archives/archives.csv";
-        $file = fopen($fileName, 'w+'); //On ouvre le fichier 'archives.csv' dans le dossier 'archives'
+      list($jourStart, $moisStart, $anneeStart) = explode('-', $start); //On découpe la variable start en trois (jour,mois,année)
+      list($jourStop, $moisStop, $anneeStop) = explode('-', $stop);//idem pour stop
+      if (checkdate($moisStart,$jourStart,$anneeStart) AND checkdate($moisStop,$jourStop,$anneeStop)) {//On test si la date est valide grâce à la fonction checkdate()
+        if (isset($format[0]) != ""){ //On regarde qu'au moins une informations est demandée
+          $fileName = "archives/archives.csv";
+          $file = fopen($fileName, 'w+'); //On ouvre le fichier 'archives.csv' dans le dossier 'archives'
 
-        $data = array( //Création du futur contenu du fichier avec un tableau
-          array('Method : GET'), //Chaque ligne correspond à une une ligne dans un tableur
-          array('Date', 'Vitesse vent (m/s)', 'Direction vent', 'Température', 'Pression', 'Humidité'),
-          array('Data 3rtjtyk1', 'Data 32', 'Data 33', 'Data 34', 'Data 35', ''),
-          array('Data 41', 'Data 42', 'Data 43', 'Data 44', 'Data 45', ''),
-          array('Data 51', 'Data 52', 'Data 53', 'Data 54', 'Data 55', '')
-        );
+          $data = array( //Création du futur contenu du fichier avec un tableau
+            array('Method : GET'), //Chaque ligne correspond à une une ligne dans un tableur
+            array('Date', 'Vitesse vent (m/s)', 'Direction vent', 'Température', 'Pression', 'Humidité'),
+            array('Data 3rtjtyk1', 'Data 32', 'Data 33', 'Data 34', 'Data 35', ''),
+            array('Data 41', 'Data 42', 'Data 43', 'Data 44', 'Data 45', ''),
+            array('Data 51', 'Data 52', 'Data 53', 'Data 54', 'Data 55', '')
+          );
 
-        foreach ($data as $row)
-        {
-          fputcsv($file, $row); //on rempli le fichier avec le tableau ci dessus
+          foreach ($data as $row)
+          {
+            fputcsv($file, $row); //on rempli le fichier avec le tableau ci dessus
+          }
+
+
+          //-----------------------------------------------------------  Gestion du fichier ZIP
+          $zip = new ZipArchive(); //instanciation de la classe ZipArchive
+          if($zip->open('archives/archives.zip', ZipArchive::OVERWRITE) == true){ //On test que le fichier est bien la
+            $zip->deleteName('archives.csv'); //Supression de l'ancien fichier
+            $zip->deleteName('README.txt');
+            $zip->addFile('archives/archives.csv'); //Ajout du nouveau
+            $zip->addFile('archives/README.txt');
+            $zip->close(); //Fermeture de l'instance
+          }
+          else{
+            echo '<div class="error"> Erreur : Impossible d&#039;ouvrir le fichier zip, veuillez contacter un administrateur en cliquant ici : <a href="index.php#comment">Signalement</a></div>';
+          }
+          //-----------------------------------------------------------
+
+          echo '<div class="box"><form method="get" action="archives/archives.zip">Votre fichier est prêt ! Cliquez ici pour le télécharger : <input type="submit" name="dlButton" value="Télécharger"></form></div>';
+          //Création du bouton de téléchargement
+        } else {
+          echo '<div class="error"> Erreur : Mauvaise rédaction du format, veuillez vous référer à la <a href="doc.php">documentation</a></div>';
         }
-
-
-        //-----------------------------------------------------------  Gestion du fichier ZIP
-        $zip = new ZipArchive(); //instanciation de la classe ZipArchive
-        if($zip->open('archives/archives.zip', ZipArchive::OVERWRITE) == true){ //On test que le fichier est bien la
-          $zip->deleteName('archives.csv'); //Supression de l'ancien fichier
-          $zip->deleteName('README.txt');
-          $zip->addFile('archives/archives.csv'); //Ajout du nouveau
-          $zip->addFile('archives/README.txt');
-          $zip->close(); //Fermeture de l'instance
-        }
-        else{
-          echo '<div class="error"> Erreur : Impossible d&#039;ouvrir le fichier zip, veuillez contacter un administrateur en cliquant ici : <a href="index.php#comment">Signalement</a></div>';
-        }
-        //-----------------------------------------------------------
-
-        echo '<div class="box"><form method="get" action="archives/archives.zip">Votre fichier est prêt ! Cliquez ici pour le télécharger : <input type="submit" name="dlButton" value="Télécharger"></form></div>';
-        //Création du bouton de téléchargement
       } else {
-        echo '<div class="error"> Erreur : Mauvaise rédaction du format, veuillez vous référer à la <a href="doc.php">documentation</a></div>';
+        echo '<div class="error""> Erreur : la date n\'est pas valide, veuillez vous référer à la <a href="doc.php">documentation</a></div>';
       }
     } else {
       echo '<div class="error""> Erreur : format de la date non conforme, veuillez vous référer à la <a href="doc.php">documentation</a></div>';
@@ -96,56 +102,57 @@
     $start = $_POST['start'];
     $stop = $_POST['stop'];
     if (strlen($start) == 10 AND strlen($stop) == 10 AND DateTime::createFromFormat('Y-m-d', $start) AND DateTime::createFromFormat('Y-m-d', $stop)) {
-      if (isset($_POST['vVent'])){
-        array_push($format, '$$VVENT');
-      } if (isset($_POST['dVent'])) {
-        array_push($format, '$$DVENT');
-      } if (isset($_POST['pres'])) {
-        array_push($format, '$$PRES');
-      } if (isset($_POST['hum'])) {
-        array_push($format, '$$HUM');
-      } if (isset($_POST['date'])) {
-        array_push($format, '$$DATE');
-      } if (isset($_POST['temp'])) {
-        array_push($format, '$$TEMP');
-      }
-      // echo '<pre>'; print_r($format); echo '</pre>';
-
-      if (isset($format[0]) != ""){
-        $fileName = "archives/archives.csv";
-        $file = fopen($fileName, 'w+');
-
-        $data = array(
-          array('Method : POST'),
-          array('Date', 'Vitesse vent (m/s)', 'Direction vent', 'Température', 'Pression', 'Humidité'),
-          array('Data 31', 'Data 32', 'Data 33', 'Data 34', 'Data 35', ''),
-          array('Data 41', 'Data 42', 'Data 43', 'Data 44', 'Data 45', ''),
-          array('Data 51', 'Data 52', 'Data 53', 'Data 54', 'Data 55', '')
-        );
-
-        foreach ($data as $row)
-        {
-          fputcsv($file, $row);
+      list($jourStart, $moisStart, $anneeStart) = explode('-', $start); //On découpe la variable start en trois (jour,mois,année)
+      list($jourStop, $moisStop, $anneeStop) = explode('-', $stop);//idem pour stop
+      if (checkdate($moisStart,$jourStart,$anneeStart) AND checkdate($moisStop,$jourStop,$anneeStop)) {
+        if (isset($_POST['vVent'])){
+          array_push($format, '$$VVENT');
+        } if (isset($_POST['dVent'])) {
+          array_push($format, '$$DVENT');
+        } if (isset($_POST['pres'])) {
+          array_push($format, '$$PRES');
+        } if (isset($_POST['hum'])) {
+          array_push($format, '$$HUM');
+        } if (isset($_POST['date'])) {
+          array_push($format, '$$DATE');
+        } if (isset($_POST['temp'])) {
+          array_push($format, '$$TEMP');
         }
+        // echo '<pre>'; print_r($format); echo '</pre>';
+        if (isset($format[0]) != ""){
+          $fileName = "archives/archives.csv";
+          $file = fopen($fileName, 'w+');
 
-        //-----------------------------------------------------------
-        $zip = new ZipArchive();
-        if($zip->open('archives/archives.zip', ZipArchive::OVERWRITE) === true){
-          $zip->deleteName('archives.csv');
-          $zip->deleteName('README.txt');
-          $zip->addFile('archives/archives.csv');
-          $zip->addFile('archives/README.txt');
-          $zip->close();
+          $data = array(
+            array('Method : POST'),
+            array('Date', 'Vitesse vent (m/s)', 'Direction vent', 'Température', 'Pression', 'Humidité'),
+          );
+          foreach ($data as $row)
+          {
+            fputcsv($file, $row);
+          }
+
+          //-----------------------------------------------------------
+          $zip = new ZipArchive();
+          if($zip->open('archives/archives.zip', ZipArchive::OVERWRITE) === true){
+            $zip->deleteName('archives.csv');
+            $zip->deleteName('README.txt');
+            $zip->addFile('archives/archives.csv'); //Ajout du nouveau
+            $zip->addFile('archives/README.txt');
+            $zip->close();
+          }
+          else{
+            echo '<div class="error"> Erreur : Impossible d&#039;ouvrir le fichier zip.</div>';
+          }
+          //-----------------------------------------------------------
+
+
+          echo '<div class="box"><form method="get" action="archives/archives.zip">Votre fichier est prêt ! Cliquez ici pour le télécharger : <input type="submit" name="dlButton" value="Télécharger"></form></div>';
+        } else{
+          echo '<div class="error"> Erreur : Vous n\'avez pas séléctionné d\'informations à exploiter. </div>';
         }
-        else{
-          echo '<div class="error"> Erreur : Impossible d&#039;ouvrir le fichier zip.</div>';
-        }
-        //-----------------------------------------------------------
-
-
-        echo '<div class="box"><form method="get" action="archives/archives.zip">Votre fichier est prêt ! Cliquez ici pour le télécharger : <input type="submit" name="dlButton" value="Télécharger"></form></div>';
-      } else{
-        echo '<div class="error"> Erreur : Vous n\'avez pas séléctionné d\'informations à exploiter. </div>';
+      } else {
+        echo '<div class="error""> Erreur : la date n\'est pas valide, veuillez vous référer à la <a href="doc.php">documentation</a></div>';
       }
     } else {
       echo '<div class="error"> Erreur : format de la date non conforme/non saisi</div>';
