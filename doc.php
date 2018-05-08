@@ -258,7 +258,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
       </section>
     </article>
-    <?php include 'footerDoc.html'; ?>
+    <?php include 'footerDoc.php'; ?>
   </div>
 
   <script>

@@ -34,11 +34,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <?php
 
 
-// A CHErCHER DANS LA BDD
+// jointure entre les deux parties, c'est ici que judith va chercher ses données dans la base de données.
 $orientB = array('e','no','n','so','s','e','se','o','no','o','so','so');
 $vent = array(12,9,4,4,12,8,24,29,11,15,30,25);
 $heure = array('15h00','15h15','15h30','15h45','16h00','16h15','16h30','16h45','17h00','17h15','17h30','17h45');
 $temp = array('1','-3','2','-1','2','-2','-1','1','-4','5','2','1');
+$ventMax = array(20,15,9,12,20,10,30,35,17,25,40,35);
+$ventMin = array(7,5,0,0,5,3,20,19,5,10,25,20);
+$pression = array(1095, 1050, 1040, 1030, 1020, 1010, 1000, 980, 970, 950, 940, 910);
 // ---------------------------------------
 
 
@@ -95,11 +98,17 @@ $ventString = " ";//vitesses de vent pour les graphiques
 $heureString = " ";//heures pour les graphiques
 $tempString = " ";//température pour les graphiques
 $tempResString = " ";//température ressentie pour les graphiques
+$pressionString = " ";//pression
+$ventMaxString = " ";//température max
+$ventMinString = " ";//température min
 for ($i=0; $i < count($vent); $i++) {
   $ventString = "$ventString $vent[$i],";
   $heureString = "$heureString \"$heure[$i]\",";
   $tempString = "$tempString $temp[$i],";
   $tempResString = "$tempResString $tempRes[$i],";
+  $pressionString = "$pressionString $pression[$i],";
+  $ventMaxString = "$ventMaxString $ventMax[$i],";
+  $ventMinString = "$ventMinString $ventMin[$i],";
 }
 //------ Ajout du programme de prévision du temps sur 24H00 (previ.php) ------
 include 'previ.php'; //
@@ -279,8 +288,8 @@ include 'previ.php'; //
             <h3>Quelques explications !</h3>
             <ul>
               <li>
-                  Grâce au donnée de notre station météo nous proposons une prévision météorologique sur une période d’environ 24H00. <br />
-                  Nos prévision se basent sur la méthode Moreux, pour plus d’information nous invitons à consulter le site <a href="http://leguidemeteo.com/prevoir-le-temps-a-partir-de-son-barometre/#attachment_809"> leguidemeteo.com</a>.
+                  Grâce aux données de notre station météo nous proposons une prévision météorologique sur une période d’environ 24H00. <br />
+                  Nos prévisions se basent sur la méthode Moreux, pour plus d’information nous invitons à consulter le site <a href="http://leguidemeteo.com/prevoir-le-temps-a-partir-de-son-barometre/#attachment_809"> leguidemeteo.com</a>.
               </li>
             </ul>
             <h3>Nos prévisions sur 24h :</h3><br />
@@ -343,7 +352,7 @@ include 'previ.php'; //
         datasets: [{
           label: 'Pression ',//Nom de cet ensemble de valeurs
           yAxisID: 'B',//On place les valeurs en ordonnée sur l'axe de droite
-          data: [1095, 1050, 1040, 1030, 1020, 1010, 1000, 980, 970, 950, 940, 910], //On génère les valeurs via php
+          data: [<?php echo $pressionString?>], //On génère les valeurs via php
           borderWidth: 2,
           lineTension: 0.3,
           backgroundColor: 'rgba(0,0,0,0.15)',
@@ -398,7 +407,7 @@ include 'previ.php'; //
           pointHoverRadius: 12,
         }, {
           label: 'Vitesse vent min (km/h) ',
-          data: [5,3,0,0,6,2,12,15,6,11,22,15],
+          data: [<?php echo $ventMinString ?>],
           backgroundColor: [
             'rgba(32,44,99,0.2)'
           ],
@@ -418,7 +427,7 @@ include 'previ.php'; //
           pointStyle: "dash"
         }, {
           label: 'Vitesse vent max (km/h) ',
-          data: [20,15,9,12,20,10,30,35,17,25,40,35],
+          data: [<?php echo $ventMaxString;?>],
           backgroundColor: [
             'rgba(32,44,99,0.3)'
           ],

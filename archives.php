@@ -25,13 +25,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </head>
 <body>
   <?php
-  // ATTENTION, PB AVEC LES BALISE HTML A RETIRER DU FICHIER FINAL !
-
   //src svg https://www.virendrachandak.com/techtalk/creating-csv-file-using-php-and-mysql/
 
   /*$file = fopen('test.txt', 'w+');
 
-  Il t'ouvre le fichier en lecture et écriture.
+  Il ouvre le fichier en lecture et écriture.
   Le "w+" créer le fichier si il n'existe pas.*/
 
   $format = array();
@@ -61,10 +59,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
           $data = array( //Création du futur contenu du fichier avec un tableau
             array('Method : GET'), //Chaque ligne correspond à une une ligne dans un tableur
-            array('Date', 'Vitesse vent (m/s)', 'Direction vent', 'Température', 'Pression', 'Humidité'),
-            array('Data 3rtjtyk1', 'Data 32', 'Data 33', 'Data 34', 'Data 35', ''),
-            array('Data 41', 'Data 42', 'Data 43', 'Data 44', 'Data 45', ''),
-            array('Data 51', 'Data 52', 'Data 53', 'Data 54', 'Data 55', '')
+            array('Date', 'Vitesse vent (m/s)', 'Direction vent', 'Température', 'Pression', 'Humidité'),// on écrit l'en-tête du fichier csv
+              // C'est ici que judith doit remplir le fichier avec les données de la base de données.
           );
 
           foreach ($data as $row)
@@ -118,14 +114,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         } if (isset($_POST['temp'])) {
           array_push($format, '$$TEMP');
         }
-        // echo '<pre>'; print_r($format); echo '</pre>';
         if (isset($format[0]) != ""){
           $fileName = "archives/archives.csv";
           $file = fopen($fileName, 'w+');
 
           $data = array(
             array('Method : POST'),
-            array('Date', 'Vitesse vent (m/s)', 'Direction vent', 'Température', 'Pression', 'Humidité'),
+            array('Date', 'Vitesse vent (m/s)', 'Direction vent', 'Température', 'Pression', 'Humidité'),// on écrit l'en-tête du fichier csv
+              // C'est ici que judith doit remplir le fichier avec les données de la base de données.
           );
           foreach ($data as $row)
           {

@@ -1,5 +1,5 @@
 <head>
-  <link rel="stylesheet" type="text/css" href="footer.css" />
+  <link rel="stylesheet" type="text/css" href="footerDoc.css" />
 </head>
 <footer>
   <div>
@@ -8,12 +8,12 @@
   <div class="separator"></div>
   <div class="boxFooter">
     <div class="footerTitle">
-      <h3 class="white margin" style="text-align: center;">Vous voulez nous contacter ?</h3>
+      <h3 class="white" style="text-align: center;">Vous voulez nous contacter ?</h3>
     </div>
     <div class="footerContent">
-      <form method="post" class="comment" action="insercomment.php" id="comment">
+      <form method="post" class="comment" action="comment.php">
         <textarea name="comment" placeholder="Vous pouvez nous faire part de vos questions / vos suggestions ici !"></textarea>
-        <input type="submit" class="white" />
+        <input type="submit" class="white" value="Envoyer" />
       </form>
     </div>
   </div>
