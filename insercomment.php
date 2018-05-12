@@ -12,8 +12,14 @@ die('Erreur : '.$e->getMessage());
 }
 // S'il n'y a pas d'erreur, on affiche les commentaires
 
+// Cela sert à définir le fuseau horaire, ici : Paris/Europe.
+date_default_timezone_set('UTC');
+$datetoday = date("Y-m-d"); // Voici la date d'aujourd'hui, format AAAA-MM-JJ
 
-$inser = $bdd->prepare('INSERT INTO comment(date_com, com) VALUES(?, ?)'); // Insertion d'un nouveau commentaire
-$inser->execute(array(CURRENT_DATE, $_POST['comment'])); // Date d'aujourd'hui et le commentaire
-echo $inser['com'];
+// On ajoute une entrée dans la table comment à la date du jour
+$inser = $bdd->prepare('INSERT INTO comment(date_com, com) VALUES(?, ?)');
+$inser->execute(array($datetoday, $_POST['comment'])); // Date d'aujourd'hui et le commentaire
+
+
+header('Location: index.php') //Permet de revenir à la page d'avant
 ?>
